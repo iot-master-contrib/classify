@@ -15,9 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/alarm/count": {
+        "/device/area/count": {
             "post": {
-                "description": "查询报警",
+                "description": "查询区域数量",
                 "consumes": [
                     "application/json"
                 ],
@@ -25,9 +25,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "alarm"
+                    "device-area"
                 ],
-                "summary": "查询报警",
+                "summary": "查询区域数量",
                 "parameters": [
                     {
                         "description": "查询参数",
@@ -49,44 +49,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/alarm/list": {
-            "get": {
-                "description": "查询报警",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "alarm"
-                ],
-                "summary": "查询报警",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "skip",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.ReplyList-types_Alarm"
-                        }
-                    }
-                }
-            }
-        },
-        "/alarm/search": {
+        "/device/area/create": {
             "post": {
-                "description": "查询报警",
+                "description": "创建区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -94,17 +59,17 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "alarm"
+                    "device-area"
                 ],
-                "summary": "查询报警",
+                "summary": "创建区域",
                 "parameters": [
                     {
-                        "description": "查询参数",
+                        "description": "区域信息",
                         "name": "search",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api.ParamSearch"
+                            "$ref": "#/definitions/types.DeviceArea"
                         }
                     }
                 ],
@@ -112,147 +77,15 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-types_Alarm"
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceArea"
                         }
                     }
                 }
             }
         },
-        "/alarm/{id}/delete": {
+        "/device/area/export": {
             "get": {
-                "description": "删除报警",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "alarm"
-                ],
-                "summary": "删除报警",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "报警ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Alarm"
-                        }
-                    }
-                }
-            }
-        },
-        "/alarm/{id}/read": {
-            "get": {
-                "description": "阅读报警",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "alarm"
-                ],
-                "summary": "阅读报警",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "报警ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Alarm"
-                        }
-                    }
-                }
-            }
-        },
-        "/validator/count": {
-            "post": {
-                "description": "查询检查数量",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "validator"
-                ],
-                "summary": "查询检查数量",
-                "parameters": [
-                    {
-                        "description": "查询参数",
-                        "name": "search",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.ParamSearch"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.ReplyData-int64"
-                        }
-                    }
-                }
-            }
-        },
-        "/validator/create": {
-            "post": {
-                "description": "创建检查",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "validator"
-                ],
-                "summary": "创建检查",
-                "parameters": [
-                    {
-                        "description": "检查信息",
-                        "name": "search",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/types.Validator"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Validator"
-                        }
-                    }
-                }
-            }
-        },
-        "/validator/export": {
-            "get": {
-                "description": "导出检查",
+                "description": "导出区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -260,15 +93,15 @@ const docTemplate = `{
                     "application/octet-stream"
                 ],
                 "tags": [
-                    "product"
+                    "device-area"
                 ],
-                "summary": "导出检查",
+                "summary": "导出区域",
                 "responses": {}
             }
         },
-        "/validator/import": {
+        "/device/area/import": {
             "post": {
-                "description": "导入检查",
+                "description": "导入区域",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -276,9 +109,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "product"
+                    "device-area"
                 ],
-                "summary": "导入检查",
+                "summary": "导入区域",
                 "parameters": [
                     {
                         "type": "file",
@@ -298,9 +131,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/validator/list": {
+        "/device/area/list": {
             "get": {
-                "description": "查询检查",
+                "description": "查询区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -308,9 +141,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-area"
                 ],
-                "summary": "查询检查",
+                "summary": "查询区域",
                 "parameters": [
                     {
                         "type": "integer",
@@ -327,15 +160,15 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-types_Validator"
+                            "$ref": "#/definitions/api.ReplyList-types_DeviceArea"
                         }
                     }
                 }
             }
         },
-        "/validator/search": {
+        "/device/area/search": {
             "post": {
-                "description": "查询检查",
+                "description": "查询区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -343,9 +176,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-area"
                 ],
-                "summary": "查询检查",
+                "summary": "查询区域",
                 "parameters": [
                     {
                         "description": "查询参数",
@@ -361,15 +194,15 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyList-types_Validator"
+                            "$ref": "#/definitions/api.ReplyList-types_DeviceArea"
                         }
                     }
                 }
             }
         },
-        "/validator/{id}": {
+        "/device/area/{id}": {
             "get": {
-                "description": "获取检查",
+                "description": "获取区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -377,13 +210,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-area"
                 ],
-                "summary": "获取检查",
+                "summary": "获取区域",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "检查ID",
+                        "type": "string",
+                        "description": "区域ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -393,13 +226,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Validator"
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceArea"
                         }
                     }
                 }
             },
             "post": {
-                "description": "修改检查",
+                "description": "修改区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -407,24 +240,24 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-area"
                 ],
-                "summary": "修改检查",
+                "summary": "修改区域",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "检查ID",
+                        "type": "string",
+                        "description": "区域ID",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "检查信息",
-                        "name": "validator",
+                        "description": "区域信息",
+                        "name": "device-area",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/types.Validator"
+                            "$ref": "#/definitions/types.DeviceArea"
                         }
                     }
                 ],
@@ -432,15 +265,15 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Validator"
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceArea"
                         }
                     }
                 }
             }
         },
-        "/validator/{id}/delete": {
+        "/device/area/{id}/delete": {
             "get": {
-                "description": "删除检查",
+                "description": "删除区域",
                 "consumes": [
                     "application/json"
                 ],
@@ -448,13 +281,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-area"
                 ],
-                "summary": "删除检查",
+                "summary": "删除区域",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "检查ID",
+                        "type": "string",
+                        "description": "区域ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -464,15 +297,15 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Validator"
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceArea"
                         }
                     }
                 }
             }
         },
-        "/validator/{id}/disable": {
-            "get": {
-                "description": "禁用检查",
+        "/device/group/count": {
+            "post": {
+                "description": "查询分组数量",
                 "consumes": [
                     "application/json"
                 ],
@@ -480,13 +313,198 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-group"
                 ],
-                "summary": "禁用检查",
+                "summary": "查询分组数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/group/create": {
+            "post": {
+                "description": "创建分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "创建分组",
+                "parameters": [
+                    {
+                        "description": "分组信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.DeviceGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceGroup"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/group/export": {
+            "get": {
+                "description": "导出分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "导出分组",
+                "responses": {}
+            }
+        },
+        "/device/group/import": {
+            "post": {
+                "description": "导入分组",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "导入分组",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/group/list": {
+            "get": {
+                "description": "查询分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "查询分组",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "检查ID",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-types_DeviceGroup"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/group/search": {
+            "post": {
+                "description": "查询分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "查询分组",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-types_DeviceGroup"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/group/{id}": {
+            "get": {
+                "description": "获取分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "获取分组",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "分组ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -496,15 +514,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Validator"
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceGroup"
                         }
                     }
                 }
-            }
-        },
-        "/validator/{id}/enable": {
-            "get": {
-                "description": "启用检查",
+            },
+            "post": {
+                "description": "修改分组",
                 "consumes": [
                     "application/json"
                 ],
@@ -512,13 +528,54 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "validator"
+                    "device-group"
                 ],
-                "summary": "启用检查",
+                "summary": "修改分组",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "检查ID",
+                        "type": "string",
+                        "description": "分组ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "分组信息",
+                        "name": "device-group",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.DeviceGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceGroup"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/group/{id}/delete": {
+            "get": {
+                "description": "删除分组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-group"
+                ],
+                "summary": "删除分组",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "分组ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -528,7 +585,435 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.ReplyData-types_Validator"
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceGroup"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/list": {
+            "get": {
+                "description": "查询设备",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device"
+                ],
+                "summary": "查询设备",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-api_Device"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/search": {
+            "post": {
+                "description": "查询设备",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device"
+                ],
+                "summary": "查询设备",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-api_Device"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/count": {
+            "post": {
+                "description": "查询设备类型数量",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "查询设备类型数量",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/create": {
+            "post": {
+                "description": "创建设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "创建设备类型",
+                "parameters": [
+                    {
+                        "description": "设备类型信息",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.DeviceType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceType"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/export": {
+            "get": {
+                "description": "导出设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "导出设备类型",
+                "responses": {}
+            }
+        },
+        "/device/type/import": {
+            "post": {
+                "description": "导入设备类型",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "导入设备类型",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "压缩包",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-int64"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/list": {
+            "get": {
+                "description": "查询设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "查询设备类型",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "skip",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-types_DeviceType"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/search": {
+            "post": {
+                "description": "查询设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "查询设备类型",
+                "parameters": [
+                    {
+                        "description": "查询参数",
+                        "name": "search",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParamSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyList-types_DeviceType"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/{id}": {
+            "get": {
+                "description": "获取设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "获取设备类型",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备类型ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceType"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "修改设备类型",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备类型ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "设备类型信息",
+                        "name": "device-type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.DeviceType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceType"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/type/{id}/delete": {
+            "get": {
+                "description": "删除设备类型",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device-type"
+                ],
+                "summary": "删除设备类型",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备类型ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-types_DeviceType"
+                        }
+                    }
+                }
+            }
+        },
+        "/device/{id}": {
+            "get": {
+                "description": "获取设备",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device"
+                ],
+                "summary": "获取设备",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "设备ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Device"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "修改设备",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "device"
+                ],
+                "summary": "修改设备",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "设备ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "设备信息",
+                        "name": "device",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.Device"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ReplyData-api_Device"
                         }
                     }
                 }
@@ -536,6 +1021,52 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "api.Device": {
+            "type": "object",
+            "properties": {
+                "area_id": {
+                    "description": "区域",
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "gateway_id": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "description": "分组",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ClientID",
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parameters": {
+                    "description": "模型参数，用于报警检查",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    }
+                },
+                "product_id": {
+                    "type": "string"
+                },
+                "type_id": {
+                    "description": "类型",
+                    "type": "string"
+                }
+            }
+        },
         "api.ParamSearch": {
             "type": "object",
             "properties": {
@@ -563,6 +1094,17 @@ const docTemplate = `{
                 }
             }
         },
+        "api.ReplyData-api_Device": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/api.Device"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "api.ReplyData-int64": {
             "type": "object",
             "properties": {
@@ -574,35 +1116,46 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyData-types_Alarm": {
+        "api.ReplyData-types_DeviceArea": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/types.Alarm"
+                    "$ref": "#/definitions/types.DeviceArea"
                 },
                 "error": {
                     "type": "string"
                 }
             }
         },
-        "api.ReplyData-types_Validator": {
+        "api.ReplyData-types_DeviceGroup": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/types.Validator"
+                    "$ref": "#/definitions/types.DeviceGroup"
                 },
                 "error": {
                     "type": "string"
                 }
             }
         },
-        "api.ReplyList-types_Alarm": {
+        "api.ReplyData-types_DeviceType": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/types.DeviceType"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReplyList-api_Device": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/types.Alarm"
+                        "$ref": "#/definitions/api.Device"
                     }
                 },
                 "error": {
@@ -613,13 +1166,13 @@ const docTemplate = `{
                 }
             }
         },
-        "api.ReplyList-types_Validator": {
+        "api.ReplyList-types_DeviceArea": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/types.Validator"
+                        "$ref": "#/definitions/types.DeviceArea"
                     }
                 },
                 "error": {
@@ -630,75 +1183,90 @@ const docTemplate = `{
                 }
             }
         },
-        "types.Alarm": {
+        "api.ReplyList-types_DeviceGroup": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.DeviceGroup"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ReplyList-types_DeviceType": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.DeviceType"
+                    }
+                },
+                "error": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "types.DeviceArea": {
             "type": "object",
             "properties": {
                 "created": {
                     "type": "string"
                 },
-                "device_id": {
+                "desc": {
                     "type": "string"
                 },
                 "id": {
-                    "type": "integer"
-                },
-                "level": {
-                    "type": "integer"
-                },
-                "message": {
                     "type": "string"
                 },
-                "read": {
-                    "type": "boolean"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "type": {
+                "name": {
                     "type": "string"
                 }
             }
         },
-        "types.Validator": {
+        "types.DeviceGroup": {
             "type": "object",
             "properties": {
-                "again": {
-                    "description": "再次提醒间隔s",
-                    "type": "integer"
+                "area_id": {
+                    "type": "string"
                 },
                 "created": {
                     "type": "string"
                 },
-                "delay": {
-                    "description": "延迟时间s",
-                    "type": "integer"
-                },
-                "disabled": {
-                    "type": "boolean"
-                },
-                "expression": {
+                "desc": {
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
-                "level": {
-                    "type": "integer"
-                },
-                "product_id": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.DeviceType": {
+            "type": "object",
+            "properties": {
+                "created": {
                     "type": "string"
                 },
-                "template": {
+                "desc": {
                     "type": "string"
                 },
-                "title": {
+                "id": {
                     "type": "string"
                 },
-                "total": {
-                    "description": "总提醒次数",
-                    "type": "integer"
-                },
-                "type": {
+                "name": {
                     "type": "string"
                 }
             }
@@ -710,9 +1278,9 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0 版本",
 	Host:             "",
-	BasePath:         "/app/alarm/api/",
+	BasePath:         "/app/classify/api/",
 	Schemes:          []string{},
-	Title:            "历史数据接口文档",
+	Title:            "设备分类数据接口文档",
 	Description:      "API文档",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
