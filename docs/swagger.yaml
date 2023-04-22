@@ -1,0 +1,457 @@
+basePath: /app/alarm/api/
+definitions:
+  api.ParamSearch:
+    properties:
+      filter:
+        additionalProperties: true
+        type: object
+      keyword:
+        additionalProperties:
+          type: string
+        type: object
+      limit:
+        type: integer
+      skip:
+        type: integer
+      sort:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  api.ReplyData-int64:
+    properties:
+      data:
+        type: integer
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Alarm:
+    properties:
+      data:
+        $ref: '#/definitions/types.Alarm'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Validator:
+    properties:
+      data:
+        $ref: '#/definitions/types.Validator'
+      error:
+        type: string
+    type: object
+  api.ReplyList-types_Alarm:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/types.Alarm'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  api.ReplyList-types_Validator:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/types.Validator'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  types.Alarm:
+    properties:
+      created:
+        type: string
+      device_id:
+        type: string
+      id:
+        type: integer
+      level:
+        type: integer
+      message:
+        type: string
+      read:
+        type: boolean
+      title:
+        type: string
+      type:
+        type: string
+    type: object
+  types.Validator:
+    properties:
+      again:
+        description: 再次提醒间隔s
+        type: integer
+      created:
+        type: string
+      delay:
+        description: 延迟时间s
+        type: integer
+      disabled:
+        type: boolean
+      expression:
+        type: string
+      id:
+        type: string
+      level:
+        type: integer
+      product_id:
+        type: string
+      template:
+        type: string
+      title:
+        type: string
+      total:
+        description: 总提醒次数
+        type: integer
+      type:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API文档
+  title: 历史数据接口文档
+  version: 1.0 版本
+paths:
+  /alarm/{id}/delete:
+    get:
+      consumes:
+      - application/json
+      description: 删除报警
+      parameters:
+      - description: 报警ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Alarm'
+      summary: 删除报警
+      tags:
+      - alarm
+  /alarm/{id}/read:
+    get:
+      consumes:
+      - application/json
+      description: 阅读报警
+      parameters:
+      - description: 报警ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Alarm'
+      summary: 阅读报警
+      tags:
+      - alarm
+  /alarm/count:
+    post:
+      consumes:
+      - application/json
+      description: 查询报警
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 查询报警
+      tags:
+      - alarm
+  /alarm/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询报警
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: skip
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Alarm'
+      summary: 查询报警
+      tags:
+      - alarm
+  /alarm/search:
+    post:
+      consumes:
+      - application/json
+      description: 查询报警
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Alarm'
+      summary: 查询报警
+      tags:
+      - alarm
+  /validator/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取检查
+      parameters:
+      - description: 检查ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Validator'
+      summary: 获取检查
+      tags:
+      - validator
+    post:
+      consumes:
+      - application/json
+      description: 修改检查
+      parameters:
+      - description: 检查ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 检查信息
+        in: body
+        name: validator
+        required: true
+        schema:
+          $ref: '#/definitions/types.Validator'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Validator'
+      summary: 修改检查
+      tags:
+      - validator
+  /validator/{id}/delete:
+    get:
+      consumes:
+      - application/json
+      description: 删除检查
+      parameters:
+      - description: 检查ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Validator'
+      summary: 删除检查
+      tags:
+      - validator
+  /validator/{id}/disable:
+    get:
+      consumes:
+      - application/json
+      description: 禁用检查
+      parameters:
+      - description: 检查ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Validator'
+      summary: 禁用检查
+      tags:
+      - validator
+  /validator/{id}/enable:
+    get:
+      consumes:
+      - application/json
+      description: 启用检查
+      parameters:
+      - description: 检查ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Validator'
+      summary: 启用检查
+      tags:
+      - validator
+  /validator/count:
+    post:
+      consumes:
+      - application/json
+      description: 查询检查数量
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 查询检查数量
+      tags:
+      - validator
+  /validator/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建检查
+      parameters:
+      - description: 检查信息
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/types.Validator'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Validator'
+      summary: 创建检查
+      tags:
+      - validator
+  /validator/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出检查
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出检查
+      tags:
+      - product
+  /validator/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入检查
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入检查
+      tags:
+      - product
+  /validator/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询检查
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: skip
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Validator'
+      summary: 查询检查
+      tags:
+      - validator
+  /validator/search:
+    post:
+      consumes:
+      - application/json
+      description: 查询检查
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Validator'
+      summary: 查询检查
+      tags:
+      - validator
+swagger: "2.0"
