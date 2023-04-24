@@ -60,7 +60,7 @@ func main() {
 
 	//注册应用
 	payload, _ := json.Marshal(model.App{
-		Id:   "alarm",
+		Id:   "classify",
 		Name: "设备分类",
 		Entries: []model.AppEntry{{
 			Path: "app/classify/area",
