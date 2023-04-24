@@ -56,3 +56,5 @@ testem.log
 .DS_Store
 Thumbs.db
 /app
+/classify
+/*.yaml

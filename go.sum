@@ -99,6 +99,8 @@ github.com/go-openapi/jsonreference v0.20.2 h1:3sVjiK66+uXK/6oQ8xgcRKcFgQ5KXa2Kv
 github.com/go-openapi/jsonreference v0.20.2/go.mod h1:Bl1zwGIM8/wsvqjsOQLJ/SH+En5Ap4rVB5KVcIDZG2k=
 github.com/go-openapi/spec v0.20.8 h1:ubHmXNY3FCIOinT8RNrrPfGc9t7I1qhPtdOGoG2AxRU=
 github.com/go-openapi/spec v0.20.8/go.mod h1:2OpW+JddWPrpXSCIX8eOx7lZ5iyuWj3RYR6VaaBKcWA=
+github.com/go-openapi/spec v0.20.9 h1:xnlYNQAwKd2VQRRfwTEI0DcK+2cbuvI/0c7jx3gA8/8=
+github.com/go-openapi/spec v0.20.9/go.mod h1:2OpW+JddWPrpXSCIX8eOx7lZ5iyuWj3RYR6VaaBKcWA=
 github.com/go-openapi/swag v0.19.5/go.mod h1:POnQmlKehdgb5mhVOsnJFsivZCEZ/vjK9gh66Z9tfKk=
 github.com/go-openapi/swag v0.19.15/go.mod h1:QYRuS/SOXUCsnplDa677K7+DxSOj6IPNl/eQntq43wQ=
 github.com/go-openapi/swag v0.22.3 h1:yMBqmnQ0gyZvEb/+KzuWZOXgllrXT4SADYbvDaXHv/g=
@@ -452,6 +454,10 @@ github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5t
 github.com/zenazn/goji v0.9.0/go.mod h1:7S9M489iMyHBNxwZnk9/EHS098H4/F6TATF2mIxtB1Q=
 github.com/zgwit/iot-master/v3 v3.0.10 h1:zBioCRjxGY3pzmlwL7MTL2gSbi+aF1TiYEmzXUm6wTk=
 github.com/zgwit/iot-master/v3 v3.0.10/go.mod h1:ouQFswVWaXrkhey2zpUXsnUA1H2zrvdtS8DbTm0NIDw=
+github.com/zgwit/iot-master/v3 v3.1.1 h1:Cdq31mGRGNobuERc6/yLS+pDZ0pLdSyH7fWEe2VLHXM=
+github.com/zgwit/iot-master/v3 v3.1.1/go.mod h1:O3jlGIeFTbBUOCjP2fM+k1vg5rdlyBkzmZuLHtf9fWE=
+github.com/zgwit/iot-master/v3 v3.1.2 h1:1sLtJ/I+t/zFVHLxlpQBCmAzHsyLhy2p/SjAg5+Lb8Q=
+github.com/zgwit/iot-master/v3 v3.1.2/go.mod h1:O3jlGIeFTbBUOCjP2fM+k1vg5rdlyBkzmZuLHtf9fWE=
 github.com/zgwit/swagger-files v1.0.0 h1:aE0iX7r3Nh/c1CTLHPqX9Oo/14Nti4xssHTNsQpylkc=
 github.com/zgwit/swagger-files v1.0.0/go.mod h1:1d6t8kgfOaE/IZW3KXMjp1K9EftV65QaQPs4LsQMabQ=
 github.com/ziutek/mymysql v1.5.4/go.mod h1:LMSpPZ6DbqWFxNCHW77HeMg9I646SAhApZ/wKdgO/C0=

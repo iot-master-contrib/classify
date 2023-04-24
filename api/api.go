@@ -10,6 +10,6 @@ func RegisterRoutes(app *gin.RouterGroup) {
 
 	deviceGroupRouter(app.Group("/device/group"))
 
-	deviceTypeRouter(app.Group("/device/area"))
+	deviceTypeRouter(app.Group("/device/type"))
 
 }
