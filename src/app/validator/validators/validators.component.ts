@@ -19,6 +19,7 @@ import {
     styleUrls: ['./validators.component.scss'],
 })
 export class ValidatorsComponent {
+    url='/app/alarm/api/'
     loading = true;
     datum: any[] = [];
     total = 1;
@@ -26,7 +27,7 @@ export class ValidatorsComponent {
     uploading: Boolean = false;
     pageIndex = 1;
     query: any = {};
-    url = '/app/alarm/api/';
+    //url = '/app/alarm/api/';
     href!: string;
     filterLevel = [
         { text: '1', value: 1 },
@@ -55,7 +56,7 @@ export class ValidatorsComponent {
     load() {
         this.loading = true;
         this.rs
-            .post(this.url + 'validator/search', this.query)
+            .post(this.url+ 'validator/search', this.query)
             .subscribe((res) => {
                 const { data, total } = res;
                 this.datum = data || [];
@@ -78,7 +79,7 @@ export class ValidatorsComponent {
     }
 
     delete(id: number, size?: number) {
-        this.rs.get(this.url + `validator/${id}/delete`).subscribe((res) => {
+        this.rs.get(this.url+ `validator/${id}/delete`).subscribe((res) => {
             if (!size) {
                 this.msg.success('删除成功');
                 this.datum = this.datum.filter((d) => d.id !== id);
@@ -121,15 +122,13 @@ export class ValidatorsComponent {
         const formData = new FormData();
         formData.append('file', file);
         this.rs
-            .post(this.url + `validator/import`, formData)
+            .post(this.url+ `validator/import`, formData)
             .subscribe((res) => {
                 console.log(res);
             });
     }
 
-    handleExport() {
-        this.href = this.url + `validator/export`;
-    }
+     
 
     read(data: any) {
         
@@ -138,18 +137,21 @@ export class ValidatorsComponent {
     disable(mess: number, id: any) {
         if (mess)
             this.rs
-                .get(this.url + `validator/${id}/disable`)
+                .get(this.url+  `validator/${id}/disable`)
                 .subscribe((res) => {
                     this.reload();
                 });
         else
             this.rs
-                .get(this.url + `validator/${id}/enable`)
+                .get(this.url+ `validator/${id}/enable`)
                 .subscribe((res) => {
                     this.reload();
                 });
     }
-
+    cancel() {
+        this.msg.info('取消操作');
+      }
+    
     getTableHeight() {
         return tableHeight(this);
     }

@@ -10,9 +10,11 @@
     templateUrl: './validator-edit.component.html',
     styleUrls: ['./validator-edit.component.scss']
   })
-  export class ValidatorEditComponent  implements OnInit {
+  export class ValidatorEditComponent  implements OnInit { 
     group!: FormGroup;
-    id: any = 0
+    again='s'
+    delay='s'
+    id: any = 0 
     listOfOption:any[]=[ ]
     productList:any[]=[ ]
     url = '/app/alarm/api/';
@@ -70,6 +72,8 @@
     submit() {
   
       if (this.group.valid) { 
+        let value=this.group.value
+      
         let url = this.id ? this.url+`validator/${this.id}` : this.url+`validator/create`;  
         this.rs.post(url, this.group.value).subscribe(res => { 
           this.handleCancel()

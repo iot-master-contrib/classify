@@ -12,8 +12,7 @@ import { tableHeight, onAllChecked, onItemChecked, batchdel, refreshCheckedStatu
   styleUrls: ['./alarms.component.scss']
 })
 export class AlarmsComponent {
-
-
+  url='/app/alarm/api/' 
   loading = true
   datum: any[] = []
   total = 1;
@@ -48,7 +47,7 @@ export class AlarmsComponent {
 
   load() {
     this.loading = true
-    this.rs.post("/app/alarm/api/alarm/search", this.query).subscribe(res => {
+    this.rs.post(this.url+"alarm/search", this.query).subscribe(res => {
       const { data, total } = res;
       this.datum = data || [];
       this.total = total || 0;
@@ -60,7 +59,7 @@ export class AlarmsComponent {
   }
 
   delete(id: number, size?: number) {
-    this.rs.get(`/app/alarm/api/alarm/${id}/delete`).subscribe(res => {
+    this.rs.get(this.url+`alarm/${id}/delete`).subscribe(res => {
       if (!size ) {
         this.msg.success("删除成功");
         this.datum = this.datum.filter(d => d.id !== id);
@@ -97,7 +96,7 @@ export class AlarmsComponent {
 
 
   read(data: any) {
-    this.rs.get(`/app/alarm/api/alarm/${data.id}/read`).subscribe(res => {
+    this.rs.get(this.url+`alarm/${data.id}/read`).subscribe(res => {
       data.read = true;
 
     })

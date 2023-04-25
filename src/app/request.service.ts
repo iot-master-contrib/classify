@@ -10,7 +10,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 })
 export class RequestService {
 
-  public base = '/api/'; //使用ng servers proxy.config.json
+  public base = '/app/alarm/api/'; //使用ng servers proxy.config.json
   //public base = environment.host;
 
   constructor(private http: HttpClient, private message: NzMessageService, private route: Router) {
