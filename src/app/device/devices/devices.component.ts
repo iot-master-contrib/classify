@@ -55,11 +55,11 @@ export class DevicesComponent {
   }
   disable(mess: number, id: any) {
     if (mess)
-      this.rs.get(this.url+`device/${id}/disable`).subscribe((res) => {
+      this.rs.get(`api/device/${id}/disable`).subscribe((res) => {
         this.reload();
       });
     else
-      this.rs.get(this.url+`device/${id}/enable`).subscribe((res) => {
+      this.rs.get(`api/device/${id}/enable`).subscribe((res) => {
         this.reload();
       });
   }

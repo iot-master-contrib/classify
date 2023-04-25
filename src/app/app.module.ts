@@ -69,7 +69,7 @@ registerLocaleData(zh);
         BaseModule
     ],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/app/classify/' },
+    { provide: APP_BASE_HREF, useValue: '/app/alarm/' },
     { provide: NZ_I18N, useValue: zh_CN }
   ],
   bootstrap: [AppComponent]
