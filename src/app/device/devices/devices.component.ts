@@ -31,7 +31,7 @@ export class DevicesComponent {
   pageIndex = 1;
   query: any = {};
   showAddBtn: Boolean = true;
-  columnKeyNameArr: any = ['name', 'desc', 'product_id', 'group_id', 'type'];
+  columnKeyNameArr: any = ['name', 'desc', 'product_id', 'group_id', 'type_id'];
   uploading: Boolean = false;
   checked = false;
   indeterminate = false;
@@ -55,11 +55,11 @@ export class DevicesComponent {
   }
   disable(mess: number, id: any) {
     if (mess)
-      this.rs.get(`api/device/${id}/disable`).subscribe((res) => {
+      this.rs.get(`/api/device/${id}/disable`).subscribe((res) => {
         this.reload();
       });
     else
-      this.rs.get(`api/device/${id}/enable`).subscribe((res) => {
+      this.rs.get(`/api/device/${id}/enable`).subscribe((res) => {
         this.reload();
       });
   }
@@ -86,10 +86,10 @@ export class DevicesComponent {
       });
   }
 
-   
+
 
   delete(id: number, size?: number) {
-    this.rs.get(`api/device/${id}/delete`).subscribe((res) => {
+    this.rs.get(`/api/device/${id}/delete`).subscribe((res) => {
       if (!size  ) {
         this.msg.success('删除成功');
         this.datum = this.datum.filter((d) => d.id !== id);
@@ -146,8 +146,8 @@ export class DevicesComponent {
   cancel() {
     this.msg.info('取消操作');
   }
-  
-   
+
+
   getTableHeight() {
     return tableHeight(this);
   }

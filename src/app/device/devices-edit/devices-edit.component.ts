@@ -79,7 +79,7 @@ export class DevicesEditComponent implements OnInit {
       .post(this.url+'device/area/search', {})
       .subscribe((res) => {
         const data: any[] = [];
- 
+
      res.data?   res.data.filter((item: { id: string; name: string }) =>
           data.push({ label: item.id + ' / ' + item.name, value: item.id })
         ):[];
@@ -90,20 +90,20 @@ export class DevicesEditComponent implements OnInit {
   build(obj?: any) {
     obj = obj || {};
     this.group = this.fb.group({
-      id: [obj.id || '', []], 
+      id: [obj.id || '', []],
       area_id: [obj.area_id || '', []],
       group_id: [obj.group_id || '', []],
       type_id: [obj.type_id || '', []],
-     
+
       // disabled: [obj.disabled || false, []],
     });
   }
 
   submit() {
-    if (this.group.valid) { 
-      let url = (this.id ? `api/device/${this.id}` : `api/device/create`); 
-      this.rs.post(url, this.group.value).subscribe((res) => {
-       
+    if (this.group.valid) {
+      let url = (this.id ? `device/${this.id}` : `device/create`);
+      this.rs.post(this.url +url, this.group.value).subscribe((res) => {
+
         this.router.navigateByUrl(`devices`);
         this.msg.success('保存成功');
       });
@@ -117,10 +117,10 @@ export class DevicesEditComponent implements OnInit {
     }
   }
 
-   
+
 
   handleCancel() {
-    
+
     this.router.navigateByUrl(`devices`);
   }
 }
