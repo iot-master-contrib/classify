@@ -63,6 +63,9 @@ func main() {
 		Id:   "classify",
 		Name: "设备分类",
 		Entries: []model.AppEntry{{
+			Path: "app/classify/devices",
+			Name: "设备",
+		}, {
 			Path: "app/classify/area",
 			Name: "区域",
 		}, {
