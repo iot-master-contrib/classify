@@ -57,9 +57,9 @@ func deviceRouter(app *gin.RouterGroup) {
 	app.POST("/search", curd.ApiSearchWith[types.Device]("device", []curd.Join{
 		{"product", "product_id", "id", "name", "product"},
 		//TODO 添加分类联合查询
-		{"device_type", "type_id", "id", "name", "type"},
-		{"device_area", "area_id", "id", "name", "area"},
-		{"device_group", "group_id", "id", "name", "group"},
+		//{"device_type", "type_id", "id", "name", "type"},
+		//{"device_area", "area_id", "id", "name", "area"},
+		//{"device_group", "group_id", "id", "name", "group"},
 	}))
 
 	app.GET("/list", curd.ApiList[types.Device]())
