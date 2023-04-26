@@ -63,8 +63,7 @@
             <th nzColumnKey="type_id">类型ID</th>
             <th nzColumnKey="group_id">分组ID</th>
             <th nzColumnKey="area_id">区域ID</th>
-            <th nzColumnKey="name" [nzSortFn]="true">名称</th>
-            <th nzColumnKey="desc">说明</th>
+            
             <th nzColumnKey="disabled">状态</th>
             <th nzColumnKey="created" [nzSortFn]="true">日期</th>
 
@@ -85,8 +84,7 @@
             <td>{{ data.type || data.type_id }}</td>
             <td>{{ data.group ||data.group_id }}</td>
             <td>{{ data.area ||data.area_id }}</td>
-            <td>{{ data.name }}</td>
-            <td>{{ data.desc }}</td>
+           
             <td>
                 <nz-tag nzColor="success" *ngIf="data.disabled"> 禁用 </nz-tag>
                 <nz-tag nzColor="error" *ngIf="!data.disabled"> 启用 </nz-tag>
