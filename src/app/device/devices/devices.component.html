@@ -58,7 +58,7 @@
                 [nzIndeterminate]="indeterminate"
                 (nzCheckedChange)="handleAllChecked($event)"
             ></th>
-            <th nzColumnKey="id" [nzSortFn]="true">ID</th>
+            <th nzColumnKey="id" [nzSortFn]="true">设备ID</th>
             <th nzColumnKey="product_id">产品ID</th>
             <th nzColumnKey="type_id">类型ID</th>
             <th nzColumnKey="group_id">分组ID</th>
@@ -86,8 +86,8 @@
             <td>{{ data.area ||data.area_id }}</td>
            
             <td>
-                <nz-tag nzColor="success" *ngIf="data.disabled"> 禁用 </nz-tag>
-                <nz-tag nzColor="error" *ngIf="!data.disabled"> 启用 </nz-tag>
+                <nz-tag nzColor="error" *ngIf="data.disabled"> 禁用 </nz-tag>
+                <nz-tag nzColor="success" *ngIf="!data.disabled"> 启用 </nz-tag>
             </td>
             <td>{{ data.created | date }}</td>
 

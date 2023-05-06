@@ -9,6 +9,9 @@ import { DeviceAreaComponent } from './device/device-area/device-area.component'
 import { DeviceGroupComponent } from './device/device-group/device-group.component';
 import { DeviceAreaEditComponent } from './device/device-area-edit/device-area-edit.component';
  import { DevicesEditComponent } from './device/devices-edit/devices-edit.component';
+ import { SelectGroupComponent } from './device/select-group/select-group.component';
+ import { SelectAreaComponent } from './device/select-area/select-area.component';
+ import { SelectTypeComponent } from './device/select-type/select-type.component';
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'devices' },
     { path: 'devices', component: DevicesComponent},
@@ -23,7 +26,11 @@ const routes: Routes = [
     { path: 'group', component: DeviceGroupComponent },
     { path: 'group/edit/:id', component:  DeviceGroupEditComponent    },
     { path: 'group/create', component: DeviceGroupEditComponent   },
+    { path: 'selectGroup', component: SelectGroupComponent  },
+    { path: 'selectArea', component: SelectAreaComponent  },
+    { path: 'selectType', component:  SelectTypeComponent  },
     { path: '**', component: PageNotFoundComponent },
+     
 ];
 
 @NgModule({

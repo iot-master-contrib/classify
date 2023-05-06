@@ -1,0 +1,129 @@
+<app-toolbar>
+    <nz-space>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="reload()">
+            <i nz-icon nzType="reload" [nzSpin]="loading"></i>
+            刷新
+        </button>
+        <app-search-box
+            *nzSpaceItem
+            (onSearch)="search($event)"
+        ></app-search-box>
+        <ng-template  [ngIf]="showAddBtn"> </ng-template>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="choose()">设备分组</button>
+    </nz-space>
+</app-toolbar>
+
+<div nz-row [nzGutter]="16" style="padding: 0 20px">
+    <div nz-col class="gutter-row" [nzSpan]="12">
+        <nz-table
+            style="border: 1px solid rgb(237, 237, 237)"
+            #basicTable
+            [nzData]="datum"
+            [nzLoading]="loading"
+            nzShowPagination
+            nzShowSizeChanger
+            [nzTotal]="total"
+            (nzPageSizeChange)="pageSizeChange($event)"
+            (nzPageIndexChange)="pageIndexChange($event)"
+            [nzPageSize]="pageSize"
+            [nzPageIndex]="pageIndex"
+        >
+            <thead>
+                <tr>
+                    <th>选择设备</th>
+                    <th nzColumnKey="id">设备ID</th>
+                    <th nzColumnKey="name">设备名称</th>
+                    <th nzColumnKey="group_id">分组ID</th>
+
+                    <th
+                        nzColumnKey="group_id"
+                        [nzFilterMultiple]="false"
+                        [nzFilters]="filterName"
+                        [nzFilterFn]="nameFilterFn"
+                    >
+                        分组状态
+                    </th>
+                </tr>
+            </thead>
+            <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+                <tr
+                    cdkDrag
+                    *ngFor="let data of basicTable.data; let i = index"
+                    
+                >
+                    <td [nzChecked]="data.checked"
+                    (nzCheckedChange)="handleItemChecked(data, $event,1)"></td>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.group || data.group_id }}</td>
+
+                    <td>
+                        <nz-tag
+                            [nzColor]="
+                                data.group || data.group_id
+                                    ? 'success'
+                                    : 'error'
+                            "
+                        >
+                            <ng-container
+                                *ngIf="
+                                    data.group || data.group_id;
+                                    else elseTemplate
+                                "
+                            >
+                                已分组
+                            </ng-container>
+                            <ng-template #elseTemplate> 未分组 </ng-template>
+                        </nz-tag>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+
+    <!-- <div
+        nz-col
+        class="gutter-row"
+        [nzSpan]="2"
+        style="display: flex; justify-content: center; align-items: center"
+    >
+        <button nz-button nzType="primary" (click)="choose()">选择分组</button>
+    </div> -->
+    <div nz-col class="gutter-row" [nzSpan]="12">
+        <nz-table
+            style="border: 1px solid rgb(237, 237, 237)"
+            #t
+            [nzData]="group"
+            [nzLoading]="loading"
+            nzShowPagination
+            nzShowSizeChanger
+            [nzTotal]="total"
+            (nzPageSizeChange)="pageSizeChange($event)"
+            (nzPageIndexChange)="pageIndexChange($event)"
+            [nzPageSize]="pageSize"
+            [nzPageIndex]="pageIndex"
+            (nzQueryParams)="onQuery($event)"
+        >
+            <thead>
+                <tr>
+                    <th>选择分组</th>
+                    <th nzColumnKey="id">分组ID</th>
+
+                    <th nzColumnKey="name">分组名称</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let data of t.data; let i = index"
+                    
+                >
+                <td [nzChecked]="data.checked"
+                (nzCheckedChange)="handleItemChecked(data.id, $event,0)"></td>
+                    <td>{{ data.id }}</td>
+
+                    <td>{{ data.name }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

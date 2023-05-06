@@ -34,13 +34,18 @@ import { DeviceGroupEditComponent } from './device/device-group-edit/device-grou
 import { DeviceAreaEditComponent } from './device/device-area-edit/device-area-edit.component';
 import { DevicesEditComponent } from './device/devices-edit/devices-edit.component';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { SelectGroupComponent } from './device/select-group/select-group.component';
+import { SelectAreaComponent } from './device/select-area/select-area.component';
+import { SelectTypeComponent } from './device/select-type/select-type.component';
+import { NzTransferModule } from 'ng-zorro-antd/transfer';
+import { DragDropModule } from '@angular/cdk/drag-drop'
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
     DeviceAreaComponent,DeviceGroupComponent,DeviceTypeComponent,DevicesComponent,
-      DeviceTypeEditComponent, DeviceGroupEditComponent, DeviceAreaEditComponent, DevicesEditComponent
+      DeviceTypeEditComponent, DeviceGroupEditComponent, DeviceAreaEditComponent, DevicesEditComponent, SelectGroupComponent, SelectAreaComponent, SelectTypeComponent
   ],
     imports: [
         BrowserModule,
@@ -48,7 +53,9 @@ registerLocaleData(zh);
         NzInputModule,
         NzMessageModule,
         NzButtonModule,
+        DragDropModule,
         NzTableModule,
+        NzTransferModule,
         ReactiveFormsModule,
         NzFormModule ,
         NzPopconfirmModule,
