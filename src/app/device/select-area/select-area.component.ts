@@ -28,7 +28,7 @@
       url = '/app/classify/api/';
   
       loading = true;
-      selectArea = { device: '',  group: '', type: '', area: '' };
+      selectArea:any ={} ;
       datum: any[] = [];
       area: any[] = [];
       total = 1;
@@ -137,11 +137,11 @@
           this.load();
       }
   
-   
+      
       handleItemChecked(id: any, checked: boolean, num: Number) {
           if (num) {
-            if (checked) {
-              this.selectArea.device = id.id;
+            if (checked) {  
+              this.selectArea.device = id.id; 
               this.selectArea.type = id.type_id;
               this.selectArea.group = id.group_id;
           } else this.selectArea.device = '';
@@ -167,12 +167,7 @@
                 group_id: this.selectArea.group,
                 type_id: this.selectArea.type, };
               this.rs.post(this.url + url, mes).subscribe((res) => {
-                this.selectArea = {
-                  device: '',
-                  group: '',
-                  type: '',
-                  area: '',
-              };
+                this.selectArea = { };
                   this.load();
                   this.msg.success('保存成功');
               });

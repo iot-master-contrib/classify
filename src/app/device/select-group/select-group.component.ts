@@ -27,7 +27,7 @@ export class SelectGroupComponent {
     url = '/app/classify/api/';
 
     loading = true;
-    selectGroup = { device: '', group: '', type: '', area: '' };
+    selectGroup :any={};
     datum: any[] = [];
     group: any[] = [];
     total = 1;
@@ -178,11 +178,7 @@ export class SelectGroupComponent {
                 type_id: this.selectGroup.type,
             };
             this.rs.post(this.url + url, mes).subscribe((res) => {
-                this.selectGroup = {
-                    device: '',
-                    group: '',
-                    type: '',
-                    area: '',
+                this.selectGroup = { 
                 };
                 this.load();
                 this.msg.success('保存成功');

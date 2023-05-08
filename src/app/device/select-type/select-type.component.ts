@@ -28,7 +28,7 @@
       url = '/app/classify/api/';
   
       loading = true;
-      selectType = { device: '',group: '', type: '', area: ''  };
+      selectType:any = {    };
       datum: any[] = [];
       type: any[] = [];
       total = 1;
@@ -176,10 +176,7 @@
                 group_id: this.selectType.group, };
               this.rs.post(this.url + url, mes).subscribe((res) => {
                 this.selectType = {
-                  device: '',
-                  group: '',
-                  type: '',
-                  area: '',
+                  
               };
                   this.load();
                   this.msg.success('保存成功');
