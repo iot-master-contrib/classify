@@ -28,7 +28,10 @@
       url = '/app/classify/api/';
   
       loading = true;
-      selectArea:any ={} ;
+      selectArea:any ={ device: [],
+        type: [],
+        area: '',
+        group: [],} ;
       datum: any[] = [];
       area: any[] = [];
       total = 1;
@@ -141,36 +144,52 @@
       handleItemChecked(id: any, checked: boolean, num: Number) {
           if (num) {
             if (checked) {  
-              this.selectArea.device =String( id.id); 
-              this.selectArea.type =String (id.type_id);
-              this.selectArea.group =String (id.group_id);
-          } else this.selectArea.device = '';
-              this.check(id.id, checked, this.datum);
+              this.selectArea.device .push(String( id.id)) ; 
+              this.selectArea.type.push(String (id.type_id))  ;
+              this.selectArea.group.push(String (id.group_id))  ;
+          } else  
+          this.selectArea.device.filter((item: any, index: any) => {
+            if (item === String(id.id)) {
+                this.selectArea.device.splice(index, 1);
+                this.selectArea.type.splice(index, 1);
+                this.selectArea.group.splice(index, 1);
+            }
+        }); 
           } else {
-              checked ? (this.selectArea.area =String (id)) : this.selectArea.area ='';
-              this.check(id, checked, this.area);
+            if (checked) {
+                this.selectArea.area = String(id);
+                this.area.filter((item: any) => {
+                    if (item.checked === true && item.id !== id)
+                        item.checked = false;
+                    if (item.id == id) item.checked = true;
+                });
+            } else this.selectArea.area = '';
           }
       }
-      check(id: any, checked: boolean, num: any) {
-          if (checked === true) {
-              num.filter((item: any) => {
-                  if (item.checked === true && item.id !== id)
-                      item.checked = false;
-                  if (item.id == id) item.checked = true;
-              });
-          }
-      }
+     
       choose() {
-          if (this.selectArea.device && this.selectArea.area) {
-              let url = `device/${this.selectArea.device}`;
-              const mes = { area_id: this.selectArea.area,
-                group_id: this.selectArea.group,
-                type_id: this.selectArea.type, };
-              this.rs.post(this.url + url, mes).subscribe((res) => {
-                this.selectArea = { };
-                  this.load();
-                  this.msg.success('保存成功');
-              });
+          if (this.selectArea.device.length>0 && this.selectArea.area) {
+            this.selectArea.device.filter((item: any, index: any) => {
+                let url = `device/${item}`;
+                const mes = {
+                    group_id: this.selectArea.group[index],
+                    area_id: this.selectArea.area ,
+                    type_id: this.selectArea.type  [index]
+                };  
+                this.rs.post(this.url + url, mes).subscribe((res) => {
+                    if (this.selectArea.device.length === index + 1) {
+                        this.selectArea = {
+                            device: [],
+                            type: [],
+                            area: '',
+                            group: [],
+                        };
+                        this.load();
+                        this.msg.success('保存成功');
+                    }
+                });
+            });
+ 
           }
           else this.msg.error('未选中列表');
       }

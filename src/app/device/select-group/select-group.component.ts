@@ -27,7 +27,7 @@ export class SelectGroupComponent {
     url = '/app/classify/api/';
 
     loading = true;
-    selectGroup :any={};
+    selectGroup: any = { device: [], type: [], area: [], group: '' };
     datum: any[] = [];
     group: any[] = [];
     total = 1;
@@ -148,40 +148,51 @@ export class SelectGroupComponent {
     handleItemChecked(id: any, checked: boolean, num: Number) {
         if (num) {
             if (checked) {
-                this.selectGroup.device =String (id.id);
-                this.selectGroup.type =String (id.type_id);
-                this.selectGroup.area =String (id.area_id);
-            } else this.selectGroup.device = '';
-            this.check(id.id, checked, this.datum);
+                this.selectGroup.device.push(String(id.id));
+                this.selectGroup.type.push(String(id.type_id));
+                this.selectGroup.area.push(String(id.area_id));
+            } else {
+                this.selectGroup.device.filter((item: any, index: any) => {
+                    if (item === String(id.id)) {
+                        this.selectGroup.device.splice(index, 1);
+                        this.selectGroup.type.splice(index, 1);
+                        this.selectGroup.area.splice(index, 1);
+                    }
+                });
+            }
         } else {
-            checked
-                ? (this.selectGroup.group =String (id))
-                : (this.selectGroup.group = '');
-            this.check(id, checked, this.group);
+            if (checked) {
+                this.selectGroup.group = String(id);
+                this.group.filter((item: any) => {
+                    if (item.checked === true && item.id !== id)
+                        item.checked = false;
+                    if (item.id == id) item.checked = true;
+                });
+            } else this.selectGroup.group = '';
         }
     }
-    check(id: any, checked: boolean, num: any) {
-        if (checked ) {
-            num.filter((item: any) => {
-                if (item.checked && item.id !== id)
-                    item.checked = false;
-                if (item.id == id) item.checked = true;
-            });
-        }
-    }
-    choose() {
-        if (this.selectGroup.device && this.selectGroup.group) {
-            let url = `device/${this.selectGroup.device}`;
-            const mes = {
-                group_id: this.selectGroup.group,
-                area_id: this.selectGroup.area,
-                type_id: this.selectGroup.type,
-            };
-            this.rs.post(this.url + url, mes).subscribe((res) => {
-                this.selectGroup = { 
-                };
-                this.load();
-                this.msg.success('保存成功');
+   
+    choose() {  
+        if (this.selectGroup.device.length > 0 && this.selectGroup.group) {
+            this.selectGroup.device.filter((item: any, index: any) => {
+                let url = `device/${item}`;
+                const mes = {
+                    group_id: this.selectGroup.group,
+                    area_id: this.selectGroup.area[index],
+                    type_id: this.selectGroup.type[index],
+                }; 
+                this.rs.post(this.url + url, mes).subscribe((res) => {
+                    if (this.selectGroup.device.length === index + 1) {
+                        this.selectGroup = {
+                            device: [],
+                            type: [],
+                            area: [],
+                            group: '',
+                        };
+                        this.load();
+                        this.msg.success('保存成功');
+                    }
+                });
             });
         } else this.msg.error('未选中列表');
     }
