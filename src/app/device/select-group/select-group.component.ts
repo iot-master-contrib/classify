@@ -148,9 +148,9 @@ export class SelectGroupComponent {
     handleItemChecked(id: any, checked: boolean, num: Number) {
         if (num) {
             if (checked) {
-                this.selectGroup.device = id.id;
-                this.selectGroup.type = id.type_id;
-                this.selectGroup.area = id.area_id;
+                this.selectGroup.device =String (id.id);
+                this.selectGroup.type =String (id.type_id);
+                this.selectGroup.area =String (id.area_id);
             } else this.selectGroup.device = '';
             this.check(id.id, checked, this.datum);
         } else {

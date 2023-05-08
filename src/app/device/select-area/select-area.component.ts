@@ -141,9 +141,9 @@
       handleItemChecked(id: any, checked: boolean, num: Number) {
           if (num) {
             if (checked) {  
-              this.selectArea.device = id.id; 
-              this.selectArea.type = id.type_id;
-              this.selectArea.group = id.group_id;
+              this.selectArea.device =String( id.id); 
+              this.selectArea.type =String (id.type_id);
+              this.selectArea.group =String (id.group_id);
           } else this.selectArea.device = '';
               this.check(id.id, checked, this.datum);
           } else {
