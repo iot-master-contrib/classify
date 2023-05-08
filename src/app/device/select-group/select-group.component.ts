@@ -155,7 +155,7 @@ export class SelectGroupComponent {
             this.check(id.id, checked, this.datum);
         } else {
             checked
-                ? (this.selectGroup.group = id)
+                ? (this.selectGroup.group =String (id))
                 : (this.selectGroup.group = '');
             this.check(id, checked, this.group);
         }

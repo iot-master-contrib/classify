@@ -147,7 +147,7 @@
           } else this.selectArea.device = '';
               this.check(id.id, checked, this.datum);
           } else {
-              checked ? (this.selectArea.area = id) : this.selectArea.area ='';
+              checked ? (this.selectArea.area =String (id)) : this.selectArea.area ='';
               this.check(id, checked, this.area);
           }
       }

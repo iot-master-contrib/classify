@@ -155,7 +155,7 @@
           } else this.selectType.device = '';
               this.check(id.id, checked, this.datum);
           } else {
-              checked ? (this.selectType.type = id) : this.selectType.type='';
+              checked ? (this.selectType.type =String (id)) : this.selectType.type='';
               this.check(id, checked, this.type);
           }
       }
