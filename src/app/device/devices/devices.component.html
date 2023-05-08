@@ -34,6 +34,10 @@
         >
             批量删除
         </button>
+
+        <a nz-button routerLink="/select/group">快速分组</a>
+        <a nz-button routerLink="/select/area">快速分区</a>
+        <a nz-button routerLink="/select/type">快速分类</a>
     </nz-space>
 </app-toolbar>
 
@@ -63,7 +67,7 @@
             <th nzColumnKey="type_id">类型ID</th>
             <th nzColumnKey="group_id">分组ID</th>
             <th nzColumnKey="area_id">区域ID</th>
-            
+
             <th nzColumnKey="disabled">状态</th>
             <th nzColumnKey="created" [nzSortFn]="true">日期</th>
 
@@ -84,7 +88,7 @@
             <td>{{ data.type || data.type_id }}</td>
             <td>{{ data.group ||data.group_id }}</td>
             <td>{{ data.area ||data.area_id }}</td>
-           
+
             <td>
                 <nz-tag nzColor="error" *ngIf="data.disabled"> 禁用 </nz-tag>
                 <nz-tag nzColor="success" *ngIf="!data.disabled"> 启用 </nz-tag>

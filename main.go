@@ -64,7 +64,7 @@ func main() {
 		Name: "设备分类",
 		Entries: []model.AppEntry{{
 			Path: "app/classify/devices",
-			Name: "设备",
+			Name: "所有设备",
 		}, {
 			Path: "app/classify/area",
 			Name: "区域",

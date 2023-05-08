@@ -26,11 +26,11 @@ const routes: Routes = [
     { path: 'group', component: DeviceGroupComponent },
     { path: 'group/edit/:id', component:  DeviceGroupEditComponent    },
     { path: 'group/create', component: DeviceGroupEditComponent   },
-    { path: 'selectGroup', component: SelectGroupComponent  },
-    { path: 'selectArea', component: SelectAreaComponent  },
-    { path: 'selectType', component:  SelectTypeComponent  },
+    { path: 'select/group', component: SelectGroupComponent  },
+    { path: 'select/area', component: SelectAreaComponent  },
+    { path: 'select/type', component:  SelectTypeComponent  },
     { path: '**', component: PageNotFoundComponent },
-     
+
 ];
 
 @NgModule({
