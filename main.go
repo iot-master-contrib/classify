@@ -7,6 +7,8 @@ import (
 	"classify/types"
 	"embed"
 	"encoding/json"
+	"net/http"
+
 	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/banner"
 	"github.com/zgwit/iot-master/v3/pkg/build"
@@ -14,7 +16,6 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
-	"net/http"
 )
 
 //go:embed all:app/classify
@@ -74,6 +75,15 @@ func main() {
 		}, {
 			Path: "app/classify/type",
 			Name: "类型",
+		}, {
+			Path: "app/classify/select/area",
+			Name: "快速分区",
+		}, {
+			Path: "app/classify/select/group",
+			Name: "快速分组",
+		}, {
+			Path: "app/classify/select/type",
+			Name: "快速分类",
 		}},
 		Type:    "tcp",
 		Address: "http://localhost" + web.GetOptions().Addr,
