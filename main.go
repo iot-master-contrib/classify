@@ -4,14 +4,10 @@ import (
 	"embed"
 	"encoding/json"
 	"github.com/iot-master-contrib/classify/api"
-	"github.com/iot-master-contrib/classify/config"
 	_ "github.com/iot-master-contrib/classify/docs"
 	"github.com/iot-master-contrib/classify/types"
 	"github.com/zgwit/iot-master/v3/model"
-	"github.com/zgwit/iot-master/v3/pkg/banner"
-	"github.com/zgwit/iot-master/v3/pkg/build"
 	"github.com/zgwit/iot-master/v3/pkg/db"
-	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
 	"net/http"
@@ -30,13 +26,12 @@ func main() {
 
 func Startup(app *web.Engine) error {
 	//同步表结构
-	err = db.Engine.Sync2(
+	err := db.Engine.Sync2(
 		new(types.Device), new(types.DeviceType), new(types.DeviceArea), new(types.DeviceGroup),
 	)
 	if err != nil {
 		return err
 	}
-
 
 	//注册前端接口
 	api.RegisterRoutes(app.Group("/app/classify/api"))
