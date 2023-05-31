@@ -1,14 +1,12 @@
-package main
+package classify
 
 import (
-	"classify/api"
-	"classify/config"
-	_ "classify/docs"
-	"classify/types"
 	"embed"
 	"encoding/json"
-	"net/http"
-
+	"github.com/iot-master-contrib/classify/api"
+	"github.com/iot-master-contrib/classify/config"
+	_ "github.com/iot-master-contrib/classify/docs"
+	"github.com/iot-master-contrib/classify/types"
 	"github.com/zgwit/iot-master/v3/model"
 	"github.com/zgwit/iot-master/v3/pkg/banner"
 	"github.com/zgwit/iot-master/v3/pkg/build"
@@ -16,6 +14,7 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
+	"net/http"
 )
 
 //go:embed all:app/classify
@@ -27,6 +26,9 @@ var wwwFiles embed.FS
 // @BasePath /app/classify/api/
 // @query.collection.format multi
 func main() {
+}
+
+func Startup(app *web.Engine) error {
 	banner.Print("iot-master-plugin:classify")
 	build.Print()
 
@@ -34,32 +36,41 @@ func main() {
 
 	err := log.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	//加载数据库
 	err = db.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	//同步表结构
 	err = db.Engine.Sync2(
 		new(types.Device), new(types.DeviceType), new(types.DeviceArea), new(types.DeviceGroup),
 	)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	//MQTT总线
 	err = mqtt.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	defer mqtt.Close()
+	//defer mqtt.Close()
 
-	//注册应用
+	//注册前端接口
+	api.RegisterRoutes(app.Group("/app/classify/api"))
+
+	//注册接口文档
+	web.RegisterSwaggerDocs(app.Group("/app/classify"), "classify")
+
+	return nil
+}
+
+func Register() error {
 	payload, _ := json.Marshal(model.App{
 		Id:   "classify",
 		Name: "设备分类",
@@ -88,19 +99,17 @@ func main() {
 		Type:    "tcp",
 		Address: "http://localhost" + web.GetOptions().Addr,
 	})
-	_ = mqtt.Publish("master/register", payload, false, 0)
+	return mqtt.Publish("master/register", payload, false, 0)
+}
 
-	app := web.CreateEngine()
-
-	//注册前端接口
-	api.RegisterRoutes(app.Group("/app/classify/api"))
-
-	//注册接口文档
-	web.RegisterSwaggerDocs(app.Group("/app/classify"))
-
+func Static(fs *web.FileSystem) {
 	//前端静态文件
-	app.RegisterFS(http.FS(wwwFiles), "", "app/classify/index.html")
+	fs.Put("/app/alarm", http.FS(wwwFiles), "", "app/alarm/index.html")
+}
 
-	//监听HTTP
-	app.Serve()
+func Shutdown() error {
+
+	//只关闭Web就行了，其他通过defer关闭
+
+	return nil
 }

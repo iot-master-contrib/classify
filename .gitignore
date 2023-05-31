@@ -58,3 +58,4 @@ Thumbs.db
 /app
 /classify
 /*.yaml
+/*.db

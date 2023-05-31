@@ -1,8 +1,8 @@
 package api
 
 import (
-	"classify/types"
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/classify/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 )
 
@@ -114,6 +114,6 @@ func deviceGroupRouter(app *gin.RouterGroup) {
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.DeviceGroup](nil, nil,
 		"name", "desc", "area_id"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.DeviceGroup](nil, nil))
-	app.GET("/export", curd.ApiExport[types.DeviceGroup]("device-group"))
-	app.POST("/import", curd.ApiImport[types.DeviceGroup]())
+	app.GET("/export", curd.ApiExport("device-group", "device-group"))
+	app.POST("/import", curd.ApiImport("device-group"))
 }

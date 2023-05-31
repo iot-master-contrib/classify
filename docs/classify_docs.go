@@ -3,7 +3,7 @@ package docs
 
 import "github.com/swaggo/swag"
 
-const docTemplate = `{
+const docTemplateclassify = `{
     "schemes": {{ marshal .Schemes }},
     "swagger": "2.0",
     "info": {
@@ -1274,18 +1274,18 @@ const docTemplate = `{
     }
 }`
 
-// SwaggerInfo holds exported Swagger Info so clients can modify it
-var SwaggerInfo = &swag.Spec{
+// SwaggerInfoclassify holds exported Swagger Info so clients can modify it
+var SwaggerInfoclassify = &swag.Spec{
 	Version:          "1.0 版本",
 	Host:             "",
 	BasePath:         "/app/classify/api/",
 	Schemes:          []string{},
 	Title:            "设备分类数据接口文档",
 	Description:      "API文档",
-	InfoInstanceName: "swagger",
-	SwaggerTemplate:  docTemplate,
+	InfoInstanceName: "classify",
+	SwaggerTemplate:  docTemplateclassify,
 }
 
 func init() {
-	swag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)
+	swag.Register(SwaggerInfoclassify.InstanceName(), SwaggerInfoclassify)
 }

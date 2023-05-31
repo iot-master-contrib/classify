@@ -1,8 +1,8 @@
 package api
 
 import (
-	"classify/types"
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/classify/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
 	"time"
 )
@@ -54,7 +54,7 @@ func noopDeviceUpdate() {}
 
 func deviceRouter(app *gin.RouterGroup) {
 
-	app.POST("/search", curd.ApiSearchWith[types.Device]("device", []curd.Join{
+	app.POST("/search", curd.ApiSearchWith[types.Device]("device", []*curd.Join{
 		{"product", "product_id", "id", "name", "product"},
 		//TODO 添加分类联合查询
 		//{"device_type", "type_id", "id", "name", "type"},
