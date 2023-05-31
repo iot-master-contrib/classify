@@ -13,6 +13,37 @@ import (
 	"net/http"
 )
 
+func App() *model.App {
+	return &model.App{
+		Id:   "classify",
+		Name: "设备分类",
+		Entries: []model.AppEntry{{
+			Path: "app/classify/devices",
+			Name: "所有设备",
+		}, {
+			Path: "app/classify/area",
+			Name: "区域",
+		}, {
+			Path: "app/classify/group",
+			Name: "分组",
+		}, {
+			Path: "app/classify/type",
+			Name: "类型",
+		}, {
+			Path: "app/classify/select/area",
+			Name: "快速分区",
+		}, {
+			Path: "app/classify/select/group",
+			Name: "快速分组",
+		}, {
+			Path: "app/classify/select/type",
+			Name: "快速分类",
+		}},
+		Type:    "tcp",
+		Address: "http://localhost" + web.GetOptions().Addr,
+	}
+}
+
 //go:embed all:app/classify
 var wwwFiles embed.FS
 
@@ -43,34 +74,7 @@ func Startup(app *web.Engine) error {
 }
 
 func Register() error {
-	payload, _ := json.Marshal(model.App{
-		Id:   "classify",
-		Name: "设备分类",
-		Entries: []model.AppEntry{{
-			Path: "app/classify/devices",
-			Name: "所有设备",
-		}, {
-			Path: "app/classify/area",
-			Name: "区域",
-		}, {
-			Path: "app/classify/group",
-			Name: "分组",
-		}, {
-			Path: "app/classify/type",
-			Name: "类型",
-		}, {
-			Path: "app/classify/select/area",
-			Name: "快速分区",
-		}, {
-			Path: "app/classify/select/group",
-			Name: "快速分组",
-		}, {
-			Path: "app/classify/select/type",
-			Name: "快速分类",
-		}},
-		Type:    "tcp",
-		Address: "http://localhost" + web.GetOptions().Addr,
-	})
+	payload, _ := json.Marshal(App())
 	return mqtt.Publish("master/register", payload, false, 0)
 }
 
