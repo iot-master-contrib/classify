@@ -104,7 +104,7 @@ func Register() error {
 
 func Static(fs *web.FileSystem) {
 	//前端静态文件
-	fs.Put("/app/alarm", http.FS(wwwFiles), "", "app/alarm/index.html")
+	fs.Put("/app/classify", http.FS(wwwFiles), "", "app/classify/index.html")
 }
 
 func Shutdown() error {
