@@ -29,23 +29,6 @@ func main() {
 }
 
 func Startup(app *web.Engine) error {
-	banner.Print("iot-master-plugin:classify")
-	build.Print()
-
-	config.Load()
-
-	err := log.Open()
-	if err != nil {
-		return err
-	}
-
-	//加载数据库
-	err = db.Open()
-	if err != nil {
-		return err
-	}
-	//defer db.Close()
-
 	//同步表结构
 	err = db.Engine.Sync2(
 		new(types.Device), new(types.DeviceType), new(types.DeviceArea), new(types.DeviceGroup),
@@ -54,12 +37,6 @@ func Startup(app *web.Engine) error {
 		return err
 	}
 
-	//MQTT总线
-	err = mqtt.Open()
-	if err != nil {
-		return err
-	}
-	//defer mqtt.Close()
 
 	//注册前端接口
 	api.RegisterRoutes(app.Group("/app/classify/api"))
