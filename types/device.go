@@ -1,6 +1,9 @@
 package types
 
-import "github.com/zgwit/iot-master/v3/model"
+import (
+	"github.com/zgwit/iot-master/v3/model"
+	"time"
+)
 
 type Device struct {
 	model.Device `xorm:"extends"`
@@ -10,23 +13,23 @@ type Device struct {
 }
 
 type DeviceType struct {
-	Id      string     `json:"id" xorm:"pk"`
-	Name    string     `json:"name"`
-	Desc    string     `json:"desc,omitempty"`
-	Created model.Time `json:"created,omitempty" xorm:"created"`
+	Id      string    `json:"id" xorm:"pk"`
+	Name    string    `json:"name"`
+	Desc    string    `json:"desc,omitempty"`
+	Created time.Time `json:"created,omitempty" xorm:"created"`
 }
 
 type DeviceArea struct {
-	Id      string     `json:"id" xorm:"pk"`
-	Name    string     `json:"name"`
-	Desc    string     `json:"desc,omitempty"`
-	Created model.Time `json:"created" xorm:"created"`
+	Id      string    `json:"id" xorm:"pk"`
+	Name    string    `json:"name"`
+	Desc    string    `json:"desc,omitempty"`
+	Created time.Time `json:"created" xorm:"created"`
 }
 
 type DeviceGroup struct {
-	Id      string     `json:"id" xorm:"pk"`
-	AreaId  string     `json:"area_id" xorm:"index"`
-	Name    string     `json:"name"`
-	Desc    string     `json:"desc,omitempty"`
-	Created model.Time `json:"created" xorm:"created"`
+	Id      string    `json:"id" xorm:"pk"`
+	AreaId  string    `json:"area_id" xorm:"index"`
+	Name    string    `json:"name"`
+	Desc    string    `json:"desc,omitempty"`
+	Created time.Time `json:"created" xorm:"created"`
 }

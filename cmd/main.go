@@ -33,11 +33,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	app := web.CreateEngine()
 
 	//调用启动
-	err := classify.Startup(app)
+	err = classify.Startup(app)
 	if err != nil {
 		log.Fatal(err)
 	}
