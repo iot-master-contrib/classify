@@ -38,14 +38,18 @@
 </app-toolbar>
 
 <nz-table
-    #basicTable
-    [nzData]="datum"
-    [nzFrontPagination]="false"
-    [nzLoading]="loading"
-    [nzTotal]="total"
-    [nzPageSize]="pageSize"
-    [nzPageIndex]="pageIndex"
-    (nzQueryParams)="onQuery($event)"
+#basicTable
+[nzData]="datum"
+[nzLoading]="loading" 
+nzShowPagination
+nzShowSizeChanger
+[nzTotal]="total"
+[nzFrontPagination]="false"
+(nzPageSizeChange)="pageSizeChange($event)"
+(nzPageIndexChange)="pageIndexChange($event)"
+[nzPageSize]="pageSize"
+[nzPageIndex]="pageIndex"
+(nzQueryParams)="onQuery($event)"
 >
     <thead>
         <tr>

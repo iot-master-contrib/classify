@@ -72,12 +72,13 @@ export class DevicesComponent {
       .post(this.url+'device/search', this.query)
       .subscribe((res) => {
         this.datum = res.data || [];
+        this.total = res.total;
         this.datum.filter(
           (item) =>
             (item.disabled =
               item.disabled === undefined ? false : item.disabled)
         );
-        this.total = res.total;
+        
         this.setOfCheckedId.clear();
         refreshCheckedStatus(this);
       })
@@ -104,12 +105,14 @@ export class DevicesComponent {
   }
 
   onQuery($event: NzTableQueryParams) {
+    this.query.filter={group_id:undefined}
     ParseTableQuery($event, this.query);
     this.load();
   }
 
   pageIndexChange(pageIndex: number) {
-    console.log('pageIndex:', pageIndex);
+    this.query.skip = pageIndex - 1;
+    this.load();
   }
   pageSizeChange(pageSize: number) {
     this.query.limit = pageSize;

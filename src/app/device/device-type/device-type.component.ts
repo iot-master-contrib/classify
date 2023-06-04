@@ -100,7 +100,8 @@ export class DeviceTypeComponent {
     this.load();
   }
   pageIndexChange(pageIndex: number) {
-    console.log('pageIndex:', pageIndex);
+    this.query.skip = pageIndex - 1;
+    this.load();
   }
   pageSizeChange(pageSize: number) {
     this.query.limit = pageSize;
