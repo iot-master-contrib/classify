@@ -20,14 +20,15 @@
             style="border: 1px solid rgb(237, 237, 237)"
             #basicTable
             [nzData]="datum"
-            [nzLoading]="loading"
+            [nzLoading]="deviceloading"
             nzShowPagination
             nzShowSizeChanger
-            [nzTotal]="total"
-            (nzPageSizeChange)="pageSizeChange($event)"
-            (nzPageIndexChange)="pageIndexChange($event)"
-            [nzPageSize]="pageSize"
-            [nzPageIndex]="pageIndex"
+            [nzTotal]="deviceTotal"
+            [nzFrontPagination]="false" 
+            (nzPageSizeChange)="deviceSizeChange($event)"
+            (nzPageIndexChange)="deviceIndexChange($event)"
+            [nzPageSize]="deviceSize"
+            [nzPageIndex]="deviceIndex"
         >
             <thead>
                 <tr>
@@ -81,15 +82,7 @@
             </tbody>
         </nz-table>
     </div>
-
-    <!-- <div
-        nz-col
-        class="gutter-row"
-        [nzSpan]="2"
-        style="display: flex; justify-content: center; align-items: center"
-    >
-        <button nz-button nzType="primary" (click)="choose()">选择分组</button>
-    </div> -->
+ 
     <div nz-col class="gutter-row" [nzSpan]="12">
         <nz-table
             style="border: 1px solid rgb(237, 237, 237)"
@@ -99,11 +92,11 @@
             nzShowPagination
             nzShowSizeChanger
             [nzTotal]="total"
+            [nzFrontPagination]="false" 
             (nzPageSizeChange)="pageSizeChange($event)"
             (nzPageIndexChange)="pageIndexChange($event)"
             [nzPageSize]="pageSize"
-            [nzPageIndex]="pageIndex"
-            (nzQueryParams)="onQuery($event)"
+            [nzPageIndex]="pageIndex" 
         >
             <thead>
                 <tr>

@@ -25,7 +25,11 @@ import {
 export class SelectTypeComponent {
     @Input() chooseGateway = false;
     url = '/app/classify/api/';
-
+    deviceloading = true;
+    deviceTotal = 1;
+    deviceSize = 20;
+    deviceIndex = 1;
+    deviceQuery: any = {};
     loading = true;
     selectType: any = { device: [], type: '', area: [], group: [] };
     datum: any[] = [];
@@ -49,9 +53,9 @@ export class SelectTypeComponent {
     delResData: any = [];
     href!: string;
     filterName = [
-        { text: '全部', value: '全部' },
+        { text: '全部', value: '全部', byDefault: true },
         { text: '已分类', value: '已分类' },
-        { text: '未分类', value: '未分类', byDefault: true },
+        { text: '未分类', value: '未分类'  },
     ];
     constructor(
         @Optional() protected ref: NzModalRef,
@@ -60,7 +64,8 @@ export class SelectTypeComponent {
         private rs: RequestService,
         private msg: NzMessageService
     ) {
-        //this.load();
+        this.deviceLoad();
+        this.load();
     }
     nameFilterFn = (list: any, item: any): boolean => {
         if (list === '已分类') {
@@ -78,30 +83,37 @@ export class SelectTypeComponent {
     }
 
     reload() {
-        this.datum = [];
+        this.datum = this.type= [];
+        this.query = this.deviceQuery = {};
         this.load();
+        this.deviceLoad();
     }
 
-    load() {
-        //筛选网关
-        if (this.chooseGateway) this.query.filter = { type: 'gateway' };
 
-        this.loading = true;
+    deviceLoad() {
+        if (this.chooseGateway) this.deviceQuery.filter = { type: 'gateway' };
+
+        this.deviceloading = true;
         this.rs
-            .post(this.url + 'device/search', this.query)
+            .post(this.url + 'device/search', this.deviceQuery)
             .subscribe((res) => {
                 this.datum = res.data || [];
                 this.datum.filter((item: any) => {
                     item.checked = false;
                 });
-                this.total = res.total;
+                this.deviceTotal = res.total;
                 this.setOfCheckedId.clear();
                 refreshCheckedStatus(this);
             })
             .add(() => {
-                this.loading = false;
+                this.deviceloading = false;
             });
+    }
 
+    load() {
+        //筛选网关
+        if (this.chooseGateway) this.query.filter = { type: 'gateway' };
+        this.loading = true;
         this.rs
             .post(this.url + 'device/type/search', this.query)
             .subscribe((res) => {
@@ -109,7 +121,7 @@ export class SelectTypeComponent {
                 this.type.filter((item: any) => {
                     item.checked = false;
                 });
-                // this.total = res.total;
+                  this.total = res.total;
                 // this.setOfCheckedId.clear();
                 // refreshCheckedStatus(this);
             })
@@ -123,8 +135,22 @@ export class SelectTypeComponent {
         this.load();
     }
 
+    deviceSizeChange(pageSize: number) {
+        this.deviceSize = pageSize;
+        this.deviceQuery.limit = pageSize;
+        this.deviceQuery.skip = (this.pageIndex - 1) * pageSize;
+        this.deviceLoad();
+    }
+    deviceIndexChange(pageIndex: number) {
+        this.pageIndex = pageIndex;
+        this.deviceQuery.limit = this.deviceSize;
+        this.deviceQuery.skip = (pageIndex - 1) * this.deviceSize;
+        this.deviceLoad();
+    }
+
     pageIndexChange(pageIndex: number) {
-        console.log('pageIndex:', pageIndex);
+        this.query.skip = pageIndex - 1;
+        this.load();
     }
     pageSizeChange(pageSize: number) {
         this.query.limit = pageSize;
@@ -193,6 +219,7 @@ export class SelectTypeComponent {
                             group: [],
                         };
                         this.load();
+                        this.deviceLoad();
                         this.msg.success('保存成功');
                     }
                 });

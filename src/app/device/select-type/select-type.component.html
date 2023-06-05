@@ -21,14 +21,15 @@
             style="border: 1px solid rgb(237, 237, 237)"
             #basicTable
             [nzData]="datum"
-            [nzLoading]="loading"
+            [nzLoading]="deviceloading"
             nzShowPagination
             nzShowSizeChanger
-            [nzTotal]="total"
-            (nzPageSizeChange)="pageSizeChange($event)"
-            (nzPageIndexChange)="pageIndexChange($event)"
-            [nzPageSize]="pageSize"
-            [nzPageIndex]="pageIndex"
+            [nzTotal]="deviceTotal"
+            [nzFrontPagination]="false" 
+            (nzPageSizeChange)="deviceSizeChange($event)"
+            (nzPageIndexChange)="deviceIndexChange($event)"
+            [nzPageSize]="deviceSize"
+            [nzPageIndex]="deviceIndex"
         >
             <thead>
                 <tr>
@@ -104,7 +105,7 @@
             (nzPageIndexChange)="pageIndexChange($event)"
             [nzPageSize]="pageSize"
             [nzPageIndex]="pageIndex"
-            (nzQueryParams)="onQuery($event)"
+            [nzFrontPagination]="false" 
         >
             <thead>
                 <tr>
