@@ -3,6 +3,8 @@ package classify
 import (
 	"embed"
 	"encoding/json"
+	"net/http"
+
 	"github.com/iot-master-contrib/classify/api"
 	_ "github.com/iot-master-contrib/classify/docs"
 	"github.com/iot-master-contrib/classify/types"
@@ -10,7 +12,6 @@ import (
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
-	"net/http"
 )
 
 func App() *model.App {
