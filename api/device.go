@@ -54,7 +54,7 @@ func noopDeviceUpdate() {}
 
 func deviceRouter(app *gin.RouterGroup) {
 
-	app.POST("/search", curd.ApiSearchWith[types.Device]([]*curd.Join{
+	app.POST("/search", curd.ApiSearchWith[types.DeviceEx]([]*curd.Join{
 		{"product", "product_id", "id", "name", "product"},
 		//TODO 添加分类联合查询
 		{"device_type", "type_id", "id", "name", "type"},
