@@ -10,6 +10,9 @@ type Device struct {
 	TypeId       string `json:"type_id,omitempty" xorm:"index"`  //类型
 	AreaId       string `json:"area_id,omitempty" xorm:"index"`  //区域
 	GroupId      string `json:"group_id,omitempty" xorm:"index"` //分组
+	Type         string `json:"type,omitempty" xorm:"<-"`
+	Area         string `json:"area,omitempty" xorm:"<-"`
+	Group        string `json:"group,omitempty" xorm:"<-"`
 }
 
 type DeviceType struct {

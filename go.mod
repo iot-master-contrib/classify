@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/swaggo/swag v1.16.1
-	github.com/zgwit/iot-master/v3 v3.4.0
+	github.com/zgwit/iot-master/v3 v3.4.6
 )
 
 require (
