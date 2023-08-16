@@ -18,7 +18,7 @@ func App() *model.App {
 	return &model.App{
 		Id:   "classify",
 		Name: "设备分类",
-		Entries: []model.AppEntry{{
+		Entries: []*model.AppEntry{{
 			Path: "app/classify/devices",
 			Name: "所有设备",
 		}, {
