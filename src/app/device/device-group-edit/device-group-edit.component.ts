@@ -54,6 +54,7 @@ export class DeviceGroupEditComponent implements OnInit {
   build(obj?: any) {
     obj = obj || {}
     this.group = this.fb.group({
+      id: [obj.id || '', []],
       name: [obj.name || '', [Validators.required]],
       desc: [obj.desc || '', []], 
       area_id: [obj.area_id || '', []],

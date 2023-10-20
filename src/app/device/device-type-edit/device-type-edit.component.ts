@@ -38,6 +38,7 @@ export class DeviceTypeEditComponent  implements OnInit {
   build(obj?: any) {
     obj = obj || {}
     this.group = this.fb.group({ 
+      id: [obj.id || '' ,[]], 
       name: [obj.name || '' ,[]], 
       desc: [obj.desc || '', []],  
     })

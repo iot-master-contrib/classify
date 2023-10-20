@@ -38,6 +38,7 @@
     build(obj?: any) {
       obj = obj || {}
       this.group = this.fb.group({ 
+        id: [obj.id || '' ,[]], 
         name: [obj.name || '' ,[]], 
         desc: [obj.desc || '', []],  
       })
@@ -48,7 +49,7 @@
       if (this.group.valid) {
   
         let url =this.url+( this.id ? `device/area/${this.id}` : `device/area/create`); 
-        this.group.patchValue({id: Number(this.group.value.id)  })
+        // this.group.patchValue({id: Number(this.group.value.id)  })
         this.rs.post(url, this.group.value).subscribe(res => {  
           this.router.navigateByUrl('area')
           this.msg.success("保存成功")

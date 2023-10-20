@@ -10,12 +10,12 @@
   
   <nz-card [nzTitle]="id ? '编辑设备类型' : '创建设备类型'" [nzExtra]="extra">
     <form nz-form [formGroup]="group" (ngSubmit)="submit()">
-      <!-- <nz-form-item  >
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">id</nz-form-label>
+      <nz-form-item  >
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">ID</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
           <input nz-input formControlName="id" />
         </nz-form-control>
-      </nz-form-item> -->
+      </nz-form-item>
   
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">名称</nz-form-label>
