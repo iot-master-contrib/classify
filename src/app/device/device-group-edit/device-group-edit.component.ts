@@ -88,7 +88,7 @@ export class DeviceGroupEditComponent implements OnInit {
     
   }
   handleCancel() { 
-    this.router.navigateByUrl('group');
+     this.router.navigateByUrl('group');
   }
 
 }

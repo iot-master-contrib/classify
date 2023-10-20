@@ -68,8 +68,7 @@
       }
     }
     handleCancel() {
-      
-      this.router.navigateByUrl('area');
+       this.router.navigateByUrl('area');
     }
   
   }

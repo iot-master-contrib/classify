@@ -48,8 +48,8 @@ export class DeviceTypeEditComponent  implements OnInit {
 
     if (this.group.valid) {
 
-      let url = this.url+(this.id ? `device/type/${this.id}` : `device/type/create`);  
-      this.rs.post(url, this.group.value).subscribe(res => { 
+       let url = this.url+(this.id ? `device/type/${this.id}` : `device/type/create`);  
+       this.rs.post(url, this.group.value).subscribe(res => { 
         
         this.router.navigateByUrl('type')
         this.msg.success("保存成功")
