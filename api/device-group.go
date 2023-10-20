@@ -112,7 +112,7 @@ func deviceGroupRouter(app *gin.RouterGroup) {
 	app.POST("/create", curd.ApiCreateHook[types.DeviceGroup](curd.GenerateRandomId[types.DeviceGroup](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.DeviceGroup]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.DeviceGroup](nil, nil,
-		"name", "desc", "area_id"))
+		"id", 	"name", "desc", "area_id"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.DeviceGroup](nil, nil))
 	app.GET("/export", curd.ApiExport("device-group", "device-group"))
 	app.POST("/import", curd.ApiImport("device-group"))

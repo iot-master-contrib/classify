@@ -112,7 +112,7 @@ func deviceAreaRouter(app *gin.RouterGroup) {
 	app.POST("/create", curd.ApiCreateHook[types.DeviceArea](curd.GenerateRandomId[types.DeviceArea](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.DeviceArea]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.DeviceArea](nil, nil,
-		"name", "desc"))
+		"id", "name", "desc"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.DeviceArea](nil, nil))
 	app.GET("/export", curd.ApiExport("device-area", "device-area"))
 	app.POST("/import", curd.ApiImport("device-area"))
